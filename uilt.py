@@ -8,6 +8,10 @@
 from PyQt5.QtWidgets import QDialog, QLabel, QProgressBar
 from PyQt5.QtCore import Qt
 
+import xml.etree.cElementTree as et
+import pandas as pd
+
+
 class WarringDialog(QDialog):
 
 	def __init__(self, info, parent=None):
@@ -18,6 +22,7 @@ class WarringDialog(QDialog):
 		self.setWindowTitle("缺失数据集")
 		self.setWindowModality(Qt.ApplicationModal)
 		self.exec_()
+
 
 def progress_bar(minimum, maximum, parent, size=None, move=None):
 	if size is None:
@@ -32,5 +37,23 @@ def progress_bar(minimum, maximum, parent, size=None, move=None):
 
 	return pgb
 
-def p(f, v):
-	print(f, 'ss', v)
+
+def read_xml(file_name):
+	# 读取xml文件，放到dataframe df_xml中
+	xml_tree = et.ElementTree(file=file_name)  # 文件路径
+	dfcols = ['sentence', 'opinionated', 'polarity']
+	df_xml = pd.DataFrame(columns=dfcols)
+	root = xml_tree.getroot()
+
+	for sub_node in root:
+		for node in sub_node:
+			print(node, node.tag, node.attrib, node.text)
+			sentence = node.text
+			print(sentence)
+			# opinionated = node.attrib.get('component')
+			# polarity = node.attrib.get('mapping')
+			# print([sentence, opinionated, polarity])
+
+			# df_xml = df_xml.append(
+			# 	pd.Series([sentence, opinionated, polarity], index=dfcols),
+			# 	ignore_index=True)
