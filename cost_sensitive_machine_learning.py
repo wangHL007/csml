@@ -555,6 +555,7 @@ def mian():
 	cost = csml.get_cost()
 	plot_plans(csml.plans_selected, csml.plans_thresholds)
 
+
 def plot_wave(hello):
 	print(hello)
 	
