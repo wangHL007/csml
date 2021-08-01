@@ -50,7 +50,7 @@ def read_xml(file_name):
 			print(node, node.tag, node.attrib, node.text)
 			sentence = node.text
 			print(sentence)
-			# opinionated = node.attrib.get('component')
+			opinionated = node.attrib.get('component')
 			# polarity = node.attrib.get('mapping')
 			# print([sentence, opinionated, polarity])
 
